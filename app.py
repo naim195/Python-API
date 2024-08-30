@@ -4,8 +4,10 @@ from flask import Flask, request, jsonify
 import numpy as np
 import io
 import base64
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/solar-battery-calculation', methods=['POST'])
 def calculate_solar_baatery():
@@ -14,9 +16,6 @@ def calculate_solar_baatery():
 
     if not Total_energy_consumption:
         return jsonify({"error": "Total_energy_consumption is required"}), 400
-
-
-    Total_energy_consumption = 13.01  # Daily energy consumption for a house hold [kWh]
 
     daily_solar_insolation = 5.02 # Daily solar insolation in [KWh/m^2/day]
     one_hour_outage_solar_insolation = 4.6 # Solar insolation during one hour of outage [KWh/m^2]
@@ -366,15 +365,15 @@ def calculate_solar_baatery():
             "Annual Revenue Dual Mode (Rs)": f"{annual_revenue_dual_mode:,.2f}",
             "Annual Revenue On-Grid (Rs)": f"{annual_revenue_on_grid:,.2f}"
         },
-        "Cost of Energy Generation": {
-            "Dual Mode Cost (Rs/kWh)": f"{cost_energy_dual_mode:.2f}",
-            "Cost for 1 Hour Outage (Rs/kWh)": f"{cost_energy_dual_mode_onehour:.2f}",
-            "Cost for 2 Hours Outage (Rs/kWh)": f"{cost_energy_dual_mode_twohour:.2f}",
-            "Cost for 3 Hours Outage (Rs/kWh)": f"{cost_energy_dual_mode_threehour:.2f}",
-            "Night Time 1 Hour Outage Cost (Rs/kWh)": f"{cost_energy_dual_mode_night_onehour:.2f}",
-            "Night Time 2 Hours Outage Cost (Rs/kWh)": f"{cost_energy_dual_mode_night_twohour:.2f}",
-            "Night Time 3 Hours Outage Cost (Rs/kWh)": f"{cost_energy_dual_mode_night_threehour:.2f}"
-        },
+        # "Cost of Energy Generation": {
+        #     "Dual Mode Cost (Rs/kWh)": f"{cost_energy_dual_mode:.2f}",
+        #     "Cost for 1 Hour Outage (Rs/kWh)": f"{cost_energy_dual_mode_onehour:.2f}",
+        #     "Cost for 2 Hours Outage (Rs/kWh)": f"{cost_energy_dual_mode_twohour:.2f}",
+        #     "Cost for 3 Hours Outage (Rs/kWh)": f"{cost_energy_dual_mode_threehour:.2f}",
+        #     "Night Time 1 Hour Outage Cost (Rs/kWh)": f"{cost_energy_dual_mode_night_onehour:.2f}",
+        #     "Night Time 2 Hours Outage Cost (Rs/kWh)": f"{cost_energy_dual_mode_night_twohour:.2f}",
+        #     "Night Time 3 Hours Outage Cost (Rs/kWh)": f"{cost_energy_dual_mode_night_threehour:.2f}"
+        # },
         "Plots": {
             "Dual Mode Daytime Outage": dual_mode_day_plot,
             "Dual Mode Nighttime Outage": dual_mode_night_plot,
