@@ -5,9 +5,11 @@ import numpy as np
 import io
 import base64
 from flask_cors import CORS
+from flask_compress import Compress
 
 app = Flask(__name__)
 CORS(app)
+Compress(app)
 
 @app.route('/solar-battery-calculation', methods=['POST'])
 def calculate_solar_baatery():
