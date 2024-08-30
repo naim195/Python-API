@@ -330,7 +330,7 @@ def calculate_solar_baatery():
     # Set labels and title
     ax.set_xlabel('Duration of the Daytime Outage (hours)')
     ax.set_ylabel('Cost of Energy (Rs/kWh)')
-    ax.set_title('Cost of Energy Generation for Different DaytimeOutage Scenarios')
+    ax.set_title('Cost of Energy Generation for Different Daytime Outage Scenarios')
 
     # Set the y-axis limit
     #ax.set_ylim(0, max(costs) + 0.5)  # Adjust this as needed
@@ -518,8 +518,8 @@ def calculate_solar_baatery():
 
     # Set labels and title
 
-    ax.set_ylabel('Carbon Emmission (Kiloton)')
-    ax.set_title('Carbon Emmission Comparison of Dual Mode and On-Grid Systems')
+    ax.set_ylabel('Carbon Emission (Kiloton)')
+    ax.set_title('Carbon Emission Comparison of Dual Mode and On-Grid Systems')
 
     # Save the plot as a high-quality image
     carbon_emission_plot = plot_to_base64(fig6)
@@ -596,7 +596,7 @@ def calculate_solar_panel_degradation():
     data = request.json
 
     # Parameters
-    installed_power = data.get('installed_power')
+    installed_power = float(data.get('installed_power'))
     panel_age = data.get('panel_age')
     end_of_life = 30  # Typical end of life for solar panels in years
 
@@ -672,8 +672,6 @@ def calculate_solar_panel_degradation():
     plt.close(fig)
 
     # Return the image as a response
-    return jsonify({
-        "years": years,
-        "power": power,
+    return jsonify({        
         "plot_image": image_base64
     })
