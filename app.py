@@ -378,12 +378,7 @@ def calculate_solar_baatery():
 
     
 
-    # Cost of Energy generation for the on-grid system
-    print(f"The cost of energy generation for the on-grid system is {cost_energy_on_grid:.2f} Rs/kWh")
-    print(f"The cost of energy for one hour of outage for the on-grid system is {cost_energy_on_grid_onehour:.2f} Rs/kWh")
-    print(f"The cost of energy for two hours of outage for the on-grid system is {cost_energy_on_grid_twohour:.2f} Rs/kWh")
-    print(f"The cost of energy for three hours of outage for the on-grid system is {cost_energy_on_grid_threehour:.2f} Rs/kWh")
-    print(f"The cost of energy for night time outage for the on-grid system is {cost_energy_on_grid_night:.2f} Rs/kWh")
+    
 
     plt.close(fig3)
     
@@ -434,8 +429,8 @@ def calculate_solar_baatery():
 
     Simple_payback_on_grid = capital_cost_on_grid/(annual_revenue_on_grid - annual_om_cost_on_grid)
 
-    print(f"The simple payback period for the dual mode system is {Simple_payback_dual_mode:.2f} years")
-    print(f"The simple payback period for the on-grid system is {Simple_payback_on_grid:.2f} years")
+    # print(f"The simple payback period for the dual mode system is {Simple_payback_dual_mode:.2f} years")
+    # print(f"The simple payback period for the on-grid system is {Simple_payback_on_grid:.2f} years")
 
     # Plot the bar graph for the simple payback period
 
@@ -487,8 +482,8 @@ def calculate_solar_baatery():
 
     Carbon_emmission_on_grid = T_on*0.8*30/1000
 
-    print(f"The carbon emmission for the dual mode system is {Carbon_emmission_dual_mode:.2f} Ton")
-    print(f"The carbon emmission for the on-grid system is {Carbon_emmission_on_grid:.2f} Ton")
+    # print(f"The carbon emmission for the dual mode system is {Carbon_emmission_dual_mode:.2f} Ton")
+    # print(f"The carbon emmission for the on-grid system is {Carbon_emmission_on_grid:.2f} Ton")
 
     # Plot the bar graph for the carbon emmission
 
