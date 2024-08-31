@@ -511,7 +511,7 @@ def calculate_solar_baatery():
     # Annotate each bar with its value in Ton, rounded to two decimal places
     for bar in bars:
         height = bar.get_height()
-        ax2.text(bar.get_x() + bar.get_width() / 2, height + 0.2, f'{height:.2f} Kiloton', ha='center', va='bottom')
+        ax2.text(bar.get_x() + bar.get_width() / 2, height + height/1000, f'{height:.2f} Kiloton', ha='center', va='bottom')
 
     # Set labels and title
 
