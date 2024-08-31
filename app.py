@@ -496,7 +496,7 @@ def calculate_solar_baatery():
 
     # Create a figure and axis
 
-    fig6, ax = plt.subplots()
+    fig6, ax2 = plt.subplots()
 
     # Data for the bar graph
     systems = [ 'On-Grid System', 'Dual Mode System']
@@ -506,17 +506,17 @@ def calculate_solar_baatery():
     x = np.arange(len(systems))  # the label locations
     bar_width = 0.2  # Width of the bars
 
-    bars = ax.bar(systems, carbon_emmission, color=['lightblue', 'lightblue'])
+    bars = ax2.bar(systems, carbon_emmission, color=['lightblue', 'lightblue'])
 
     # Annotate each bar with its value in Ton, rounded to two decimal places
     for bar in bars:
         height = bar.get_height()
-        ax.text(bar.get_x() + bar.get_width() / 2, height + 0.2, f'{height:.2f} Kiloton', ha='center', va='bottom')
+        ax2.text(bar.get_x() + bar.get_width() / 2, height + 0.2, f'{height:.2f} Kiloton', ha='center', va='bottom')
 
     # Set labels and title
 
-    ax.set_ylabel('Carbon Emission (Kiloton)')
-    ax.set_title('Carbon Emission Comparison of Dual Mode and On-Grid Systems')
+    ax2.set_ylabel('Carbon Emission (Kiloton)')
+    ax2.set_title('Carbon Emission Comparison of Dual Mode and On-Grid Systems')
 
     # Save the plot as a high-quality image
     carbon_emission_plot = plot_to_base64(fig6)
