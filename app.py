@@ -597,15 +597,7 @@ def calculate_solar_panel_degradation():
     panel_age = data.get('panel_age')
     end_of_life = 30  # Typical end of life for solar panels in years
 
-    # Validate input
-    if installed_power is None or panel_age is None:
-        return jsonify({"error": "Missing required parameters: installed_power or panel_age."}), 400
-    
-    try:
-        installed_power = float(installed_power)
-        panel_age = int(panel_age)
-    except ValueError:
-        return jsonify({"error": "Invalid parameter values."}), 400
+    end_of_life = 30  # Typical end of life for solar panels in years
 
     # Degradation rates
     initial_degradation_rate = 2  # Annual degradation rate for the first year in percentage
@@ -613,39 +605,45 @@ def calculate_solar_panel_degradation():
 
     # Ensure that the panel_age does not exceed end_of_life
     if panel_age > end_of_life:
-        return jsonify({"error": "The current age of the panels cannot exceed their end of life."}), 400
-
-    # Calculate power degradation at 5-year intervals plus the current age
-    years = sorted(list(set([0] + list(range(5, end_of_life + 1, 5)) + [panel_age])))
-    power = []
+        print("Error: The current age of the panels cannot exceed their end of life.")
+    else:
+        # Calculate power degradation at 5-year intervals plus the current age
+        years = sorted(list(set([0] + list(range(5, end_of_life + 1, 5)) + [panel_age])))
+        power = []
 
     for year in years:
         if year == 0:
+            # Installed power at year 0
             power.append(installed_power)
         elif year == 1:
+            # Degraded power after the first year with 1.5% degradation
             power.append(installed_power * (1 - initial_degradation_rate / 100))
         else:
+            # Degradation from the second year onwards with 0.5% per year
             total_degradation = initial_degradation_rate + (year - 1) * subsequent_degradation_rate
             power.append(installed_power * (1 - total_degradation / 100))
 
     # Plotting the results
-    plt.ioff()  # Turn off interactive mode
+    x = np.arange(len(years))  # the label locations
+    width = 0.6  # Increase the width of the bars
+
     fig, ax1 = plt.subplots(figsize=(12, 6))
 
     # Define colors for bars
     colors = ['purple' if year == panel_age else 'lightblue' for year in years]
-
+    
     # Set font properties to Times New Roman
     plt.rcParams['font.family'] = 'serif'
     plt.rcParams['font.serif'] = ['Times New Roman']
 
     # Plot power output at each interval
-    bars = ax1.bar(years, power, color=colors, label='Power Output')
+    bars = ax1.bar(x, power, width, color=colors, label='Power Output')
     ax1.set_xlabel('Years')
     ax1.set_ylabel('Power Output (W)')
     ax1.set_title('Solar Power Degradation Over Time')
-    ax1.set_xticks(years)
-
+    ax1.set_xticks(x)
+    ax1.set_xticklabels(years)
+    
     # Remove the grid from the plot
     ax1.grid(False)
 
